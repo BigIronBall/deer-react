@@ -1,8 +1,9 @@
 // import React from 'react'
 
-import Login from 'pages/Login'
+import Login from 'pages/auth/Login'
 import Index from 'pages/Index'
 import App from '../App.js'
+import NotMatch from 'pages/404'
 
 const configs = [
   {
@@ -10,12 +11,15 @@ const configs = [
     component: App
   },
   {
-    path: 'home',
+    path: '/home',
     component: Index
   },
   {
-    path: 'login',
+    path: '/login',
     component: Login
+  },
+  {
+    component: NotMatch
   }
 ]
 
