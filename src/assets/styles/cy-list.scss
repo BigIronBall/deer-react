@@ -1,0 +1,37 @@
+.cy-list {
+  width: 100%;
+  .cy-list-item {
+    list-style: none;
+  }
+  .cy-list-item > a {
+    display: block;
+    margin-left: 40px;
+    border-bottom: 1px solid #eee;
+    height: 100px;
+    font-size: 28px;
+    line-height: 100px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    .label {
+      color: #333;
+    }
+    .content {
+      margin-right: 80px;
+      color: #999;
+      display: flex;
+      align-items: center;
+    }
+    &:after {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: url(../images/ic_arrow_right.png) no-repeat top center;
+      background-size: 32px 32px;
+      position: absolute;
+      top: 34px;
+      right: 36px;
+    }
+  }
+}

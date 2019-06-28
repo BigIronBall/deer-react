@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100vh;
+  max-width: 750px;
+}
+a {
+  text-decoration: none;
+}
+ul,
+li,
+div,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 0 36px;
+}
+
+.cy-form-name {
+  font-size: 52px;
+  margin-bottom: 32px;
+}
+
+.tl {
+  text-align: left;
+}
+.tr {
+  text-align: right;
+}

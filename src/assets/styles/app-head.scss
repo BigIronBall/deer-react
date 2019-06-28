@@ -1,0 +1,40 @@
+.app-head {
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .go-back {
+    position: absolute;
+    display: inline-block;
+    left: 30px;
+    top: 20px;
+    .left-arrow {
+      background: url(../images/ic_back_black.png) no-repeat top center;
+      background-size: 48px 48px;
+      width: 48px;
+      height: 48px;
+      display: block;
+    }
+  }
+  .app-title {
+    display: block;
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    &.sub {
+      text-align: left;
+    }
+    &.third {
+      text-align: right;
+    }
+  }
+  .app-head-sub-title {
+    position: absolute;
+    font-size: 32px;
+    // right: 32px;
+    right: 0;
+    top: 26px;
+    color: #333;
+  }
+}

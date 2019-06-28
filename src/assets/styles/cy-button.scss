@@ -1,0 +1,31 @@
+.cy-btn {
+  display: inline-block;
+  border: none;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 24px;
+  margin-top: 48px;
+  &-block {
+    display: block;
+  }
+  &-primary {
+    background-color: #4688fa;
+    color: #fff;
+    &.disabled {
+      background-color: #96bbfa;
+    }
+  }
+  &.normal {
+  }
+  &.large {
+    height: 88px;
+    width: 100%;
+    font-size: 36px;
+    line-height: 88px;
+    text-align: center;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}

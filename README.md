@@ -66,3 +66,25 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### React 返回 goBack
+
+React-Router V4 & V5
+
+```js
+import { withRouter } from 'react-router-dom';
+
+const GoBack = ({ showBack, history }) => {
+  if (showBack) {
+    return (
+      <span className="go-back" onClick={() => history.goBack()}>
+        <i className="left-arrow" />
+      </span>
+    );
+  } else return <></>;
+};
+
+export default withRouter(GoBack);
+```
+
+### React 路由守卫
