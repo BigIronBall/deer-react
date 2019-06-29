@@ -6,6 +6,7 @@ export default props => {
   // console.warn('input props', props);
   const [value, setValue] = useState('');
   const [type, setType] = useState('password');
+  const [focus, setFocus] = useState(false);
 
   const IconClear = ({ show }) => {
     return show ? <i className="clear" onClick={() => setValue('')} /> : <></>;
@@ -29,10 +30,31 @@ export default props => {
     props.onChange && props.onChange(e);
   };
 
+  const handleFocus = e => {
+    setTimeout(() => {
+      setFocus(true);
+    }, 100);
+    props.onFocus && props.onFocus();
+  };
+
+  const handleBlur = e => {
+    setTimeout(() => {
+      setFocus(false);
+    }, 100);
+    props.onBlur && props.onBlur();
+  };
+
   return (
     <div className="cy-input cy-password">
-      <input type={type} {...props} value={value} onChange={handleChange} />
-      <IconClear show={value.length} />
+      <input
+        type={type}
+        {...props}
+        value={value}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      />
+      <IconClear show={value.length && focus} />
       <IconChangeType show={value.length} type={type} />
     </div>
   );

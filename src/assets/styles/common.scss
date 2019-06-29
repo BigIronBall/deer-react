@@ -1,3 +1,5 @@
+@import './variable.scss';
+
 * {
   box-sizing: border-box;
 }
@@ -32,4 +34,27 @@ p {
 }
 .tr {
   text-align: right;
+}
+.center {
+  text-align: center;
+}
+.f12 {
+  font-size: 24px;
+}
+.f18 {
+  font-size: 36px;
+}
+.f14 {
+  font-size: 28px;
+}
+.blk {
+  display: block;
+}
+
+.c999 {
+  color: $c999;
+}
+
+.c-primary {
+  color: $primary;
 }

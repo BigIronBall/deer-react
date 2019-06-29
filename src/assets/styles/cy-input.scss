@@ -23,6 +23,9 @@
     right: 0;
     top: 34px;
   }
+  &.error {
+    border-bottom: 1px solid red;
+  }
   &.cy-password {
     > .clear {
       right: 64px;

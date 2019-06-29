@@ -67,6 +67,28 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
+### 应用 `postcss-px-to-viewport`
+
+- 安装
+
+```shell
+$ npm i  postcss-px-to-viewport
+```
+
+- 配置
+  在 `config/webpack.config.js` 中 `loader:require.resolve('postcss-loader')` 下的 `plugins` 配置项中添加如下配置
+
+```js
+ require('postcss-px-to-viewport')({
+              viewportWidth: 750,
+              unitPrecision: 3,
+              viewportUnit: 'vw',
+              selectorBlackList: ['.ignore', '.hairlines'],
+              minPixelValue: 1,
+              mediaQuery: false
+            }),
+```
+
 ### React 返回 goBack
 
 React-Router V4 & V5
