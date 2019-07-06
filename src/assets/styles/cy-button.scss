@@ -5,18 +5,23 @@
   line-height: 60px;
   padding: 0 24px;
   margin-top: 48px;
+  outline: none;
   &-block {
     display: block;
   }
   &-primary {
     background-color: #4688fa;
     color: #fff;
-    &.disabled {
+    &.disabled,
+    &[disabled] {
       background-color: #96bbfa;
     }
   }
-  &.normal {
+
+  > span {
+    white-space: nowrap;
   }
+
   &.large {
     height: 88px;
     width: 100%;

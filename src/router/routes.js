@@ -1,6 +1,7 @@
 // import React from 'react'
 
 import Login from 'pages/auth/Login';
+import ValidateLogin from 'pages/auth/ValidateLogin';
 import Index from 'pages/Index';
 import App from '../App.js';
 import Config from 'pages/config';
@@ -11,6 +12,9 @@ import AccountManager from 'pages/config/AccountManager';
 import ClearCache from 'pages/config/ClearCache';
 import Update from 'pages/config/Update';
 import ContactUs from 'pages/config/ContactUs';
+import Reset from 'pages/auth/Reset.js';
+import Registe from 'pages/auth/Registe.js';
+import Messages from 'pages/Messages';
 
 const configs = [
   {
@@ -26,6 +30,18 @@ const configs = [
     component: Login
   },
   {
+    path: '/validateLogin',
+    component: ValidateLogin
+  },
+  {
+    path: '/reset',
+    component: Reset
+  },
+  {
+    path: '/Registe',
+    component: Registe
+  },
+  {
     path: '/config',
     component: Config
   },
@@ -33,6 +49,7 @@ const configs = [
     path: '/accountManager',
     component: AccountManager
   },
+
   {
     path: '/aboutUs',
     component: AboutUs
@@ -50,12 +67,12 @@ const configs = [
     component: ContactUs
   },
   {
+    path: '/messages',
+    component: Messages
+  },
+  {
     component: NotMatch
   }
 ];
-
-// const Routes = () => {
-//   return configs.map(x => <Route path={x.path} component={x.component} />)
-// }
 
 export default configs;

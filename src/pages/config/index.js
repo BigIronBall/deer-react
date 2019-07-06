@@ -34,7 +34,7 @@ export default () => {
   ];
 
   return (
-    <div className="container">
+    <div className="">
       <AppHead title="设置" showBack={true} />
       <CyList list={configData} />
     </div>

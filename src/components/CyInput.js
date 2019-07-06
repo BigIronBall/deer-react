@@ -2,17 +2,33 @@ import React, { useState } from 'react';
 
 import 'styles/cy-input.scss';
 
+// const Append = ({ append }) => {
+//   if (append) {
+//     return { append };
+//   } else {
+//     return <></>;
+//   }
+// };
+
 export default props => {
   let [_value, setValue] = useState(props.value || '');
 
   let [focus, setFocus] = useState(false);
 
   const IconClear = ({ show }) => {
-    return show ? <i className="clear" onClick={() => setValue('')} /> : <></>;
+    return show ? <i className="clear" onClick={clear} /> : <></>;
   };
 
+  function clear(e) {
+    const input = e.target.previousSibling;
+    input.focus();
+    setValue('');
+    if (typeof props.onClear === 'function') {
+      props.onClear(input);
+    }
+  }
+
   const handleChange = e => {
-    // console.log(e);
     setValue(e.target.value);
     props.onChange && props.onChange(e);
   };
@@ -52,13 +68,13 @@ export default props => {
     return props.onKeyPress ? props.onKeyPress() : true;
   };
 
-  const { className, ...otherOthers } = props;
+  const { className, onClear, append, ...otherProps } = props;
 
   return (
     <div className={`cy-input ${className || ''}`}>
       <input
         type="text"
-        {...otherOthers}
+        {...otherProps}
         value={_value}
         onChange={handleChange}
         onFocus={handleFocus}
@@ -67,6 +83,8 @@ export default props => {
         onKeyPress={handleKeyPress}
       />
       <IconClear show={_value.length && focus} />
+      {append ? append : <></>}
+      {/* <Append class="cy-input-append" append={append} /> */}
     </div>
   );
 };

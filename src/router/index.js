@@ -1,12 +1,8 @@
-import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import routes from './routes'
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import routes from './routes';
 
 export default () => {
-  // return (
-  //   <Router history={browserHistory} routes={routes} />,
-  //   document.getElementById('app')
-  // )
   return (
     <BrowserRouter>
       <Switch>
@@ -20,5 +16,5 @@ export default () => {
         ))}
       </Switch>
     </BrowserRouter>
-  )
-}
+  );
+};

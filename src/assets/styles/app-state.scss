@@ -1,0 +1,14 @@
+@import './variable.scss';
+
+.app-state {
+  height: 100%;
+  img {
+    width: 240px;
+    height: auto;
+  }
+  color: $c999;
+  p {
+    margin: 20px 0;
+    font-size: 32px;
+  }
+}

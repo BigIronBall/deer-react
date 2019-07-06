@@ -3,8 +3,11 @@
   border-bottom: 1px solid #eee;
   height: 100px;
   line-height: 100px;
-  position: relative;
+  // position: relative;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
   > input {
     color: #333;
@@ -19,9 +22,6 @@
     background-size: 32px 32px;
     width: 32px;
     height: 32px;
-    position: absolute;
-    right: 0;
-    top: 34px;
   }
   &.error {
     border-bottom: 1px solid red;
@@ -37,9 +37,10 @@
     background-size: 32px 32px;
     width: 32px;
     height: 32px;
-    position: absolute;
-    right: 0;
-    top: 34px;
+    margin-left: 10px;
+    // position: absolute;
+    // right: 0;
+    // top: 34px;
     &.hide {
       background: url(../images/login/qyg_shop_icon_hide.png) no-repeat top
         center;

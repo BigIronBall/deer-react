@@ -3,15 +3,14 @@ import React from 'react';
 import 'styles/cy-button.scss';
 
 export default props => {
-  // console.warn(props);
-
   const {
     children,
     className,
     disabled = false,
     size = '',
     type = 'default',
-    onClick
+    onClick,
+    ...otherProps
   } = props;
 
   const handleClick = event => {
@@ -25,14 +24,12 @@ export default props => {
   };
 
   const btnType = `cy-btn-${type}`; // primary danger warning default disable
-  // const btnSize = `${size}`  large normal small
-
   const btnDisabled = disabled ? ' disabled' : '';
-  const _className = className ? ' ' + className : '';
+
   return (
     <button
-      className={`cy-btn ${btnType}${_className}${btnDisabled} ${size}`}
-      {...props}
+      className={['cy-btn', btnType, className, btnDisabled, size].join(' ')}
+      {...otherProps}
       onClick={handleClick}
     >
       <span>{children}</span>

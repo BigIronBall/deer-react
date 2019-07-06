@@ -54,7 +54,71 @@ p {
 .c999 {
   color: $c999;
 }
+.red {
+  color: $red;
+}
 
-.c-primary {
+.flex {
+  display: flex;
+  &.fx-center {
+    justify-content: center;
+    align-items: center;
+  }
+  &.fx-dir-col {
+    flex-direction: column;
+  }
+  &.fx-dir-row {
+    flex-direction: row;
+  }
+  &.fx-nowrap {
+    flex-wrap: nowrap;
+  }
+  &.fx-wrap {
+    flex-wrap: wrap;
+  }
+}
+
+.full-height {
+  height: calc(100vh - 88px);
+}
+
+#root > div {
+  height: 100vh;
+}
+
+.cy-primary {
   color: $primary;
+}
+
+.cy-toast-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  text-align: center;
+}
+
+.cy-mask {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+}
+
+.cy-toast-content {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  text-align: center;
+  display: inline-block;
+  padding: 0 40px;
+  height: 100px;
+  line-height: 100px;
+  font-size: 28px;
+  border-radius: 8px;
+  word-break: keep-all;
+  position: absolute;
+  top: 65vh;
+  left: 50%;
+  transform: translateX(-50%);
 }

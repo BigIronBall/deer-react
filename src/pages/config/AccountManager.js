@@ -24,7 +24,7 @@ export default () => {
   ];
 
   return (
-    <div className="container">
+    <div className="">
       <AppHead title="账号管理" showBack={true} type="sub" />
       <CyList list={configData} />
     </div>

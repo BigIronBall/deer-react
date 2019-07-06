@@ -19,12 +19,16 @@ const Title = ({ title, children, type = 'top' }) => {
   );
 };
 
-const SubTitle = ({ title, link }) => {
+const RightTitle = ({ title, link, onClick }) => {
+  function clickHandle(e) {
+    e.preventDefault();
+    if (onClick && typeof onClick === 'function') {
+      onClick();
+    }
+  }
+
   return title ? (
-    // <a className="app-head-sub-title" href={link}>
-    //   {title}
-    // </a>
-    <Link to={link} className="app-head-sub-title">
+    <Link to={link} className="app-head-sub-title" onClick={clickHandle}>
       {title}
     </Link>
   ) : (
@@ -32,12 +36,22 @@ const SubTitle = ({ title, link }) => {
   );
 };
 
-export default ({ title = '', showBack, subTitle = '', link = '' }) => {
+const AppHead = ({
+  title = '',
+  leftText = '',
+  showBack,
+  rightClick,
+  rightText = '',
+  link = ''
+}) => {
   return (
     <div className="app-head">
       <GoBack showBack={showBack} />
+      {leftText && <span className="app-head-left-title">{leftText}</span>}
       <Title title={title} />
-      <SubTitle title={subTitle} link={link} />
+      <RightTitle title={rightText} link={link} onClick={rightClick} />
     </div>
   );
 };
+
+export default AppHead;
