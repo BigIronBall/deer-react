@@ -4,6 +4,13 @@
   justify-content: center;
   align-items: center;
   position: relative;
+
+  // position: fixed;
+  // width: 100%;
+  // background: #fff;
+  // top: 0;
+  // left: 0;
+
   .go-back {
     position: absolute;
     display: inline-block;
@@ -32,9 +39,6 @@
   .app-head-sub-title {
     position: absolute;
     font-size: 32px;
-    // right: 32px;
-    // right:4vw;
-    // right: 0;
     right: 30px;
     top: 26px;
     color: #333;

@@ -1,15 +1,44 @@
-import { resolve } from 'q';
+import toast from 'components/CyToast';
+
+const TIMEOUT = 10;
+const controller = new AbortController();
+const signal = controller.signal;
+
+const timeoutPromise = timeout => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Response('timeout', { status: 504, statusText: 'timeout' }));
+      controller.abort();
+      // toast('请求超时');
+    }, timeout * 1000);
+  });
+};
 
 const Fetch = {
-  get(url, data) {
-    return doFetch(url, data);
+  get(url, data, showExpetion = false) {
+    return doFetch(url, data, 'GET', showExpetion);
   },
-  post(url, data) {
-    return doFetch(url, data, 'POST');
+  post(url, data, showExpetion = false) {
+    return doFetch(url, data, 'POST', showExpetion);
   }
 };
 
-const doFetch = (url, data, method = 'GET') => {
+function request(url, requestInfo) {
+  return fetch(url, requestInfo)
+    .then(response => {
+      // debugger;
+      return response.json();
+    }) // parses response to JSON
+    .catch(err => {
+      console.error(err);
+      // reject(err);
+    })
+    .then(response => {
+      return Promise.resolve(response.data);
+    });
+}
+
+const doFetch = (url, data, method = 'GET', showExpetion = false) => {
   let requestInfo = {
     method: method || 'POST', // *GET, POST, PUT, DELETE, etc.
     // mode: 'same-origin', // no-cors, cors, *same-origin
@@ -19,33 +48,28 @@ const doFetch = (url, data, method = 'GET') => {
       'BXVIP-UA': 'wap',
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    redirect: 'follow' // manual, *follow, error
+    redirect: 'follow', // manual, *follow, error
+    signal: signal
     // referrer: 'no-referrer', // no-referrer, *client
     // body: data // body data type must match "Content-Type" header
   };
 
   if (method === 'POST') requestInfo.body = data;
-  return fetch(url, requestInfo)
-    .then(response => {
-      // debugger;
-      return response.json();
-    }) // parses response to JSON
-    .catch(err => {
-      // vue.$dialog.loading.close();
-      // vue.$dialog.toast({
-      //   mes: '网络断开'
-      // });
-      // debugger;
-      console.error(err);
-      // reject(err);
+
+  return Promise.race([request(url, requestInfo), timeoutPromise(TIMEOUT)])
+    .then(res => {
+      return res;
     })
-    .then(
-      response => {
-        // debugger;
-        return resolve(response.data);
+    .catch(err => {
+      if (showExpetion) {
+        if (err.statusText === 'timeout') {
+          toast('请求超时，请重试');
+        }
       }
-      // processResponse(response, params, isShowErr, resolve, reject)
-    );
+
+      console.error(err);
+      return null;
+    });
 };
 
 export default Fetch;

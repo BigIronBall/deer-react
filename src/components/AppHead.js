@@ -28,7 +28,7 @@ const RightTitle = ({ title, link, onClick }) => {
   }
 
   return title ? (
-    <Link to={link} className="app-head-sub-title" onClick={clickHandle}>
+    <Link to={link} className="app-head-sub-title f14" onClick={clickHandle}>
       {title}
     </Link>
   ) : (
