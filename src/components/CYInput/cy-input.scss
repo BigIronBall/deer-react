@@ -3,7 +3,6 @@
   border-bottom: 1px solid #eee;
   height: 100px;
   line-height: 100px;
-  // position: relative;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-around;
@@ -17,8 +16,8 @@
     font-size: 28px;
   }
   > .clear {
-    background: url(../images/login/qyg_shop_icon_delete.png) no-repeat top
-      center;
+    background: url(../../assets/images/login/qyg_shop_icon_delete.png)
+      no-repeat top center;
     background-size: 32px 32px;
     width: 32px;
     height: 32px;
@@ -32,18 +31,15 @@
     }
   }
   > .icon-password {
-    background: url(../images/login/qyg_shop_icon_display.png) no-repeat top
-      center;
+    background: url(../../assets/images/login/qyg_shop_icon_display.png)
+      no-repeat top center;
     background-size: 32px 32px;
     width: 32px;
     height: 32px;
     margin-left: 10px;
-    // position: absolute;
-    // right: 0;
-    // top: 34px;
     &.hide {
-      background: url(../images/login/qyg_shop_icon_hide.png) no-repeat top
-        center;
+      background: url(../../assets/images/login/qyg_shop_icon_hide.png)
+        no-repeat top center;
       background-size: 32px 32px;
     }
   }

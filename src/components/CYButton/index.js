@@ -1,6 +1,6 @@
 import React from 'react';
 
-import 'styles/cy-button.scss';
+import './cy-button.scss';
 
 export default props => {
   const {
@@ -10,21 +10,22 @@ export default props => {
     size = '',
     type = 'default',
     onClick,
+    loading = false,
+    loadingText = '',
     ...otherProps
   } = props;
 
   const handleClick = event => {
-    // console.warn('e inside', event);
     event.preventDefault();
     event.stopPropagation();
-    if (event.target.className.includes(disabled) || disabled) {
-      return;
-    }
+
+    if (disabled || loading) return;
+
     onClick && onClick(event);
   };
 
-  const btnType = `cy-btn-${type}`; // primary danger warning default disable
-  const btnDisabled = disabled ? ' disabled' : '';
+  const btnType = `cy-btn-${type}`;
+  const btnDisabled = disabled || loading ? ' disabled' : '';
 
   return (
     <button
@@ -32,7 +33,7 @@ export default props => {
       {...otherProps}
       onClick={handleClick}
     >
-      <span>{children}</span>
+      <span>{loading ? loadingText : children}</span>
     </button>
   );
 };

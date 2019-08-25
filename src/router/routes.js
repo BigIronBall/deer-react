@@ -15,11 +15,22 @@ import ContactUs from 'pages/config/ContactUs';
 import Reset from 'pages/auth/Reset.js';
 import Registe from 'pages/auth/Registe.js';
 import Messages from 'pages/Messages';
+import Shop from 'pages/shop';
+import Edit from 'pages/edit';
+// import edit from '../pages/edit.js';
+// import Home from 'pages/home';
 
 const configs = [
   {
     path: '/',
-    component: App
+    component: App,
+    exact: true,
+    requiresAuth: true
+  },
+  {
+    path: '/shop',
+    component: Shop,
+    requiresAuth: true
   },
   {
     path: '/home',
@@ -31,15 +42,18 @@ const configs = [
   },
   {
     path: '/validateLogin',
-    component: ValidateLogin
+    component: ValidateLogin,
+    requiresAuth: false
   },
   {
     path: '/reset',
-    component: Reset
+    component: Reset,
+    requiresAuth: false
   },
   {
     path: '/Registe',
-    component: Registe
+    component: Registe,
+    requiresAuth: false
   },
   {
     path: '/config',
@@ -69,6 +83,14 @@ const configs = [
   {
     path: '/messages',
     component: Messages
+  },
+  // {
+  //   path: 'member',
+  //   component: Member
+  // },
+  {
+    path: '/edit',
+    component: Edit
   },
   {
     component: NotMatch

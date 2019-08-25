@@ -50,6 +50,7 @@ function initRules(rules) {
   return obj;
 }
 
+// 输入变更，每次都要验证
 function handleChange(
   target,
   state,
@@ -58,6 +59,10 @@ function handleChange(
   validation,
   setValidation
 ) {
+  if (!target.name) throw new Error('target.name is not defined');
+  if (!(target.name in state))
+    throw new Error("state has no name like target's name");
+
   const fieldName = target.name;
   state[fieldName]['value'] = target.value;
   state[fieldName]['meta'].dirty = true;
@@ -84,7 +89,7 @@ function validateSingleRule(rule, value) {
   });
 
   if (rule.type && !regRules[rule.type]) {
-    throw Error(`没有 ${rule.type} 这个正则校验类型`);
+    throw new Error(`没有 ${rule.type} 这个正则校验类型`);
   }
 
   if (rule.type && !arr.length) {
@@ -106,8 +111,8 @@ function getNewValidation(fieldName, state, rules, errors, value) {
     key => newValidation.errors[key].length === 0
   );
 
+  // 必填校验
   if (newValidation.valid) {
-    console.log('newState2', state);
     let notValid = rules.some(
       rule =>
         rule.rules.required && !state[rule.name].value.toString().trim().length
@@ -115,7 +120,6 @@ function getNewValidation(fieldName, state, rules, errors, value) {
     if (notValid) newValidation.valid = false;
   }
   return newValidation;
-  // setValidation(newValidation);
 }
 
 function formDataFactory(state, setState, rules, validation, setValidation) {
@@ -183,6 +187,7 @@ function useFormValidate(initFormData, rules) {
   );
 
   const validate = () => {
+    console.warn('validate');
     const errors = {};
     rules.forEach(rule => {
       let validResult = validateSingleRule(rule, formState[rule.name].value);
@@ -203,6 +208,7 @@ function useFormValidate(initFormData, rules) {
           !formState[rule.name].value.toString().trim().length
       );
       if (notValid) newValidation.valid = false;
+      // newValidation.valid = notValid ? false : true;
     }
 
     setValidation(newValidation);
@@ -216,7 +222,12 @@ function useFormValidate(initFormData, rules) {
     ]);
   };
 
-  return [form, validation, validate, flatErrors];
+  const values = {};
+  Object.keys(formState).forEach(key => {
+    values[key] = formState[key].value;
+  });
+
+  return [form, validation, validate, flatErrors, values];
 }
 
 export default useFormValidate;

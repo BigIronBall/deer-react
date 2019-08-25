@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
-import 'styles/cy-input.scss';
+import './CYInput/cy-input.scss';
 
 export default props => {
-  // console.warn('input props', props);
   const [value, setValue] = useState('');
   const [type, setType] = useState('password');
   const [focus, setFocus] = useState(false);
+  const inputrRef = useRef(null);
 
   function clear(e) {
-    const input = e.target.previousSibling;
+    const input = inputrRef.current;
     if (input.tagName === 'INPUT') {
       setTimeout(() => {
         input.focus();
@@ -28,8 +28,7 @@ export default props => {
   };
 
   function changeType(e) {
-    const input =
-      e.target.previousSibling.previousSibling || e.target.previousSibling;
+    const input = inputrRef.current;
     if (input.tagName === 'INPUT') {
       setTimeout(() => {
         input.focus();
@@ -74,6 +73,7 @@ export default props => {
     <div className="cy-input cy-password">
       <input
         type={type}
+        ref={inputrRef}
         {...otherProps}
         name={props.name || ''}
         placeholder={props.placeholder || ''}

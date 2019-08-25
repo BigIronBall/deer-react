@@ -1,11 +1,14 @@
 import toast from 'components/CyToast';
+import { HOST } from '../config/index';
+
+// import to from 'await-to';
 
 const TIMEOUT = 10;
-const controller = new AbortController();
-const signal = controller.signal;
 
-const timeoutPromise = timeout => {
+const timeoutPromise = (timeout, controller) => {
   return new Promise((resolve, reject) => {
+    // if (signal.aborted) return;
+
     setTimeout(() => {
       reject(new Response('timeout', { status: 504, statusText: 'timeout' }));
       controller.abort();
@@ -15,10 +18,10 @@ const timeoutPromise = timeout => {
 };
 
 const Fetch = {
-  get(url, data, showExpetion = false) {
+  async get(url, data, showExpetion = true) {
     return doFetch(url, data, 'GET', showExpetion);
   },
-  post(url, data, showExpetion = false) {
+  async post(url, data, showExpetion = true) {
     return doFetch(url, data, 'POST', showExpetion);
   }
 };
@@ -26,19 +29,28 @@ const Fetch = {
 function request(url, requestInfo) {
   return fetch(url, requestInfo)
     .then(response => {
-      // debugger;
       return response.json();
-    }) // parses response to JSON
+    })
     .catch(err => {
-      console.error(err);
-      // reject(err);
+      if (err.message === 'Failed to fetch') {
+        return Promise.reject('服务器无法连接');
+      } else {
+        return Promise.reject(err.message || err);
+      }
     })
     .then(response => {
       return Promise.resolve(response.data);
     });
 }
 
-const doFetch = (url, data, method = 'GET', showExpetion = false) => {
+const doFetch = (url, data, method = 'GET', showExpetion = true) => {
+  url = HOST + url;
+
+  const token = localStorage.getItem('token');
+
+  const controller = new AbortController();
+  const signal = controller.signal;
+
   let requestInfo = {
     method: method || 'POST', // *GET, POST, PUT, DELETE, etc.
     // mode: 'same-origin', // no-cors, cors, *same-origin
@@ -46,7 +58,8 @@ const doFetch = (url, data, method = 'GET', showExpetion = false) => {
     credentials: 'same-origin', // include, *same-origin, omit
     headers: {
       'BXVIP-UA': 'wap',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'deer-token': token
     },
     redirect: 'follow', // manual, *follow, error
     signal: signal
@@ -56,19 +69,28 @@ const doFetch = (url, data, method = 'GET', showExpetion = false) => {
 
   if (method === 'POST') requestInfo.body = data;
 
-  return Promise.race([request(url, requestInfo), timeoutPromise(TIMEOUT)])
+  return Promise.race([
+    request(url, requestInfo),
+    timeoutPromise(TIMEOUT, controller)
+  ])
     .then(res => {
+      console.warn('res', res);
       return res;
     })
     .catch(err => {
+      // 网络错误或者超时需要提示
+      controller.abort();
       if (showExpetion) {
         if (err.statusText === 'timeout') {
           toast('请求超时，请重试');
+        } else {
+          toast(err);
         }
       }
 
       console.error(err);
-      return null;
+      // return Promise.reject(err);
+      return Promise.resolve({});
     });
 };
 

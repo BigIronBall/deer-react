@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import CyButton from './CyButton';
+import CYButton from './CYButton';
 
-import useCountDown from '@/utils/hooks/countDownHook';
+import useCountDown from '@/utils/hooks/useCountDown';
 
 function getLocalTime($key) {
   let localCountdown = sessionStorage.getItem($key);
@@ -75,13 +75,13 @@ const CDButton = ({
   }
 
   return (
-    <CyButton
+    <CYButton
       className={className || ''}
       disabled={isStart}
       onClick={handleClick}
     >
       {isStart ? `${cdText}${second}s` : text}
-    </CyButton>
+    </CYButton>
   );
 };
 

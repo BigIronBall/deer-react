@@ -1,0 +1,51 @@
+@import '@/styles/variable.scss';
+
+.action-sheet {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1502;
+  background-color: #efeff4;
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+  color: #333;
+
+  &.active {
+    transform: translate(0);
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .close {
+    background: url('@/styles/goods/icon_dialog_close.png') no-repeat top center;
+    background-size: 32px 32px;
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-around;
+    font-size: 28px;
+    // color:#333;
+    &.active {
+      color: $primary;
+      > i.selected {
+        background: url('@/styles/account/selected.png') no-repeat top center;
+        background-size: 32px 32px;
+        width: 32px;
+        height: 32px;
+        display: inline-block;
+      }
+    }
+  }
+}

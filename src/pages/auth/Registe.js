@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import AppHead from 'components/AppHead';
-import CyInput from 'components/CyInput';
-import CyButton from 'components/CyButton';
+import CyInput from 'components/CYInput';
+import CYButton from 'components/CYButton';
 import CyPassword from 'components/CyPassword';
-import useValidate from '@/utils/hooks/formValidateHooks';
+import useValidate from '@/utils/hooks/useFormValidate';
 import toast from 'components/CyToast';
 import CDButton from 'components/CyCountDownButton';
 
@@ -125,7 +125,7 @@ const Registe = ({ history }) => {
             className={validation.errors.password.length ? 'error' : ''}
             {...formData.password.input}
           />
-          <CyButton
+          <CYButton
             className="mr-t-24"
             type="primary"
             size="large"
@@ -133,7 +133,7 @@ const Registe = ({ history }) => {
             onClick={handleClick}
           >
             确认
-          </CyButton>
+          </CYButton>
         </form>
       </div>
     </div>

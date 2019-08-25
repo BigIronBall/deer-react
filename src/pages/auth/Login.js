@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import AppHead from 'components/AppHead';
-
-import CyInput from 'components/CyInput';
+import CyInput from 'components/CYInput';
 import CyPassword from 'components/CyPassword';
-import CyButton from 'components/CyButton';
-
-import useValidate from '@/utils/hooks/formValidateHooks';
-
+import CYButton from 'components/CYButton';
+import useValidate from '@/utils/hooks/useFormValidate';
+import { LOGIN } from '@/utils/api';
+import useFetch from '@/utils/hooks/useLoadingFetch';
 import toast from 'components/CyToast';
 
 const Login = ({ history }) => {
+  const [loading, fetchLogin] = useFetch();
+
   const initialState = {
     username: '',
     password: ''
@@ -38,12 +39,12 @@ const Login = ({ history }) => {
     }
   ];
 
-  let [formData, validation, validate, flatErrors] = useValidate(
+  let [formData, validation, validate, flatErrors, values] = useValidate(
     initialState,
     validations
   );
 
-  const handleClick = e => {
+  const handleClick = async e => {
     e.preventDefault();
     const validResult = validate();
     if (!validResult) {
@@ -54,12 +55,25 @@ const Login = ({ history }) => {
         return;
       }
     }
-    toast('我是你爸爸');
 
-    // history.replace('/registe');
+    const [err, result] = await fetchLogin(LOGIN, values, 'POST');
+
+    if (err) {
+      debugger;
+      return;
+    }
+
+    if (result && result.token) {
+      localStorage.setItem('token', result.token);
+      toast('登录成功');
+      // console.info('http request result', result);
+      if (!result.shop) {
+        history.replace('/shop');
+      } else {
+        history.push('/');
+      }
+    } else toast(result.msg);
   };
-
-  // console.log('validation', validation.valid);
 
   return (
     <div className="container">
@@ -69,7 +83,7 @@ const Login = ({ history }) => {
         <CyInput
           name="username"
           type="tel"
-          value={formData.username.value}
+          // value={formData.username.value}
           placeholder="请输入手机号"
           maxLength="11"
           className={validation.errors.username.length ? 'error' : ''}
@@ -77,21 +91,23 @@ const Login = ({ history }) => {
         />
         <CyPassword
           name="password"
-          value={formData.password.value}
+          // value={formData.password.value}
           placeholder="请输入密码"
           maxLength="20"
           className={validation.errors.password.length ? 'error' : ''}
           {...formData.password.input}
         />
 
-        <CyButton
+        <CYButton
           type="primary"
           size="large"
           disabled={!validation.valid}
           onClick={handleClick}
+          loading={loading}
+          loadingText="正在登陆"
         >
           登录
-        </CyButton>
+        </CYButton>
       </form>
       <Link to="/reset" className="tr f12 blk c999">
         忘记密码

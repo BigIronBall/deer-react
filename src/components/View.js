@@ -3,18 +3,11 @@ import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 
 function View({ children, location: { state }, history }) {
-  console.log(state, history);
   const ctx = classNames({
     page: true,
-    // push: history.action === 'PUSH',
-    pop: history.action === 'POP' //state && state.prev
+    pop: history.action === 'POP'
   });
-  return (
-    // <div className={ctx}>
-    //   <div className="page_inner">{children}</div>
-    // </div>
-    <div className={ctx}>{children}</div>
-  );
+  return <div className={ctx}>{children}</div>;
 }
 
 export default withRouter(View);

@@ -27,13 +27,27 @@ const RightTitle = ({ title, link, onClick }) => {
     }
   }
 
-  return title ? (
-    <Link to={link} className="app-head-sub-title f14" onClick={clickHandle}>
-      {title}
-    </Link>
-  ) : (
-    <></>
-  );
+  if (title && typeof title === 'string') {
+    if (onClick) {
+      return (
+        <Link
+          to={link}
+          className="app-head-sub-title f14"
+          onClick={clickHandle}
+        >
+          {title}
+        </Link>
+      );
+    } else {
+      return (
+        <Link to={link} className="app-head-sub-title f14">
+          {title}
+        </Link>
+      );
+    }
+  } else {
+    return <></>;
+  }
 };
 
 const AppHead = ({

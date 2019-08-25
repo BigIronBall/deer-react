@@ -4,6 +4,7 @@ import AppHead from 'components/AppHead';
 import Fetch from '@/utils/fetch';
 import dayjs from 'dayjs';
 import toast from 'components/CyToast';
+import { GET_MESSAGES } from '../utils/api';
 
 import 'styles/pages/messages.scss';
 
@@ -63,8 +64,8 @@ const Messages = () => {
    */
   function setRead(id) {
     const msg = msgs.find(msg => msg.id === id && !msg.read);
-    if (!msg) return;
-    if (msg.read) return;
+    if (!msg || msg.read) return;
+
     msg.read = true;
     // console.log(msgs);
     setMsgs(JSON.parse(JSON.stringify(msgs)));
@@ -72,8 +73,7 @@ const Messages = () => {
 
   useEffect(() => {
     async function getData() {
-      const url =
-        'https://www.easy-mock.com/mock/5c878df273929c5b2c60a5e9/example/messages';
+      const url = GET_MESSAGES;
 
       let data = await Fetch.get(url, '', true);
       if (Array.isArray(data) && data.length) {

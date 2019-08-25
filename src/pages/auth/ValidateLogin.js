@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import AppHead from 'components/AppHead';
-import CyInput from 'components/CyInput';
-import CyButton from 'components/CyButton';
-import useValidate from '@/utils/hooks/formValidateHooks';
+import CyInput from 'components/CYInput';
+import CYButton from 'components/CYButton';
+import useValidate from '@/utils/hooks/useFormValidate';
 import toast from 'components/CyToast';
 import CDButton from 'components/CyCountDownButton';
 
@@ -114,7 +114,7 @@ const Login = ({ history }) => {
               注册
             </Link>
           </p>
-          <CyButton
+          <CYButton
             className="mr-t-24"
             type="primary"
             size="large"
@@ -122,7 +122,7 @@ const Login = ({ history }) => {
             onClick={handleClick}
           >
             登录
-          </CyButton>
+          </CYButton>
         </form>
         <Link className="tr f12 blk c999" to="/reset">
           忘记密码
